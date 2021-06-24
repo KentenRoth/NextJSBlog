@@ -1,17 +1,20 @@
 export const blogPosts = [
 	{
 		title: 'Post One',
-		date: new Date(),
+		slug: 'post-one',
+		date: new Date().toString(),
 		content: 'This is my first post',
 	},
 	{
 		title: 'Post Two',
-		date: new Date(),
+		slug: 'post-two',
+		date: new Date().toString(),
 		content: 'This is my second Post',
 	},
 	{
 		title: 'Post Three',
-		date: new Date(),
+		slug: 'post-three',
+		date: new Date().toString(),
 		content: 'This is my third post',
 	},
 ];
