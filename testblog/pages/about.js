@@ -6,12 +6,12 @@ export default function Home() {
 	return (
 		<div>
 			<Head>
-				<title>Test Blog</title>
+				<title>About</title>
 				<meta name="description" content="Test Blog Site" />
 			</Head>
 
 			<main>
-				<h1>Welcome</h1>
+				<h1>About</h1>
 			</main>
 		</div>
 	);
