@@ -1,10 +1,8 @@
 import Head from 'next/head';
-import Image from 'next/image';
 import Link from 'next/link';
-import { blogPosts } from '../lib/data';
-import styles from '../styles/Home.module.css';
+import { getAllPosts } from '../lib/data';
 
-export default function Home() {
+export default function Home({ posts }) {
 	return (
 		<div>
 			<Head>
@@ -13,21 +11,40 @@ export default function Home() {
 			</Head>
 
 			<main>
-				<h1>Welcome</h1>
-				<div>
-					{blogPosts.map((item) => (
-						<div key={item.slug}>
-							<div>
-								<Link href={`/blog/${item.slug}`}>
-									<a>{item.title}</a>
-								</Link>
-							</div>
-							<div>{item.date.toString()}</div>
-							<div>{item.content}</div>
-						</div>
+				<div className="space-y-4">
+					{posts.map((item) => (
+						<BlogListItem key={item.slug} {...item} />
 					))}
 				</div>
 			</main>
+		</div>
+	);
+}
+
+export async function getStaticProps() {
+	const allPosts = getAllPosts();
+	return {
+		props: {
+			posts: allPosts.map(({ data, content, slug }) => ({
+				...data,
+				date: data.date,
+				content,
+				slug,
+			})),
+		},
+	};
+}
+
+function BlogListItem({ slug, title, date, content }) {
+	return (
+		<div className="border border-gray-200 shadow-md rounded p-4 hover:border-gray-300 hover:shadow-lg transition duration-200 ease-in">
+			<div>
+				<Link href={`/blog/${slug}`}>
+					<a className="font-bold">{title}</a>
+				</Link>
+			</div>
+			<div className="text-gray-600 text-xs">{date}</div>
+			<div>{content.substring(0, 300)}</div>
 		</div>
 	);
 }
